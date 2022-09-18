@@ -1,7 +1,7 @@
 # MTCA-Mixer
 MTCA-Mixer: an Efficient Mixer for NLP
 
-| MTCA |
+## Experiments
 | DATASET | ACCURACY | PARAMETERS |
 |  ----  |  ----  |  ----  |
 | AGNEWS |  | |
