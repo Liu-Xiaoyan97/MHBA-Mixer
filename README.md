@@ -8,7 +8,7 @@ MTCA-Mixer: an Efficient Mixer for NLP
 | AMAZON |  | | |
 | DBPEDIA | | | |
 | HYPERPARTISAN | | | |
-| IMDB |1024 |87.96% | 0.677M |
+| IMDB |1024 |87.88% | 0.677M |
 | Yelp2 | 128| 92.46% | 0.726M |
 | SST2 | 128| 83.48% | 0.726M |
 | CoLA | 128| 69.51% | 0.726M |
