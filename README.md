@@ -5,7 +5,7 @@ MTCA-Mixer: an Efficient Mixer for NLP
 | DATASET |MAX SEQ LEN | ACCURACY | PARAMETERS |
 |  ----  | ---- | ----  |  ----  |
 | AGNEWS | 128 | 91.79% | 0.727M |
-| AMAZON |  | | |
+| AMAZON |128| | 0.726M|
 | DBPEDIA | | | |
 | HYPERPARTISAN | | | |
 | IMDB |1024 |87.88% | 0.677M |
