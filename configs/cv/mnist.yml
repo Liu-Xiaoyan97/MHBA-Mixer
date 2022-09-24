@@ -1,0 +1,14 @@
+dataset_type:
+  name: mnist
+  log_dir: ./logs/mnist
+
+patchEmbedding:
+  in_channels: 3
+  hidden_dim: &hidden_dim 512
+  feature_map: 32
+  patch_size: 4
+
+classification:
+  hidden_dim: *hidden_dim
+  proj_dim: 1000
+  num_class: 10

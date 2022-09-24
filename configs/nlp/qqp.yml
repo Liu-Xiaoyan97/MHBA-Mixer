@@ -1,0 +1,22 @@
+vocab:
+  tokenizer:
+    vocab: ./wordpiece/mbert_vocab.txt
+    lowercase: false
+    strip_accents: false
+    clean_text: false
+  vocab_path: ./vocab.npy
+
+dataset_type:
+  name: qqp
+  log_dir: ./logs/qqp
+  labels: [neg, pos]
+  max_seq_len: 256
+  dataset_path: None
+
+classification:
+  hidden_dim: &hidden_dim 256
+  proj_dim: *hidden_dim
+  num_class: 2
+
+
+
