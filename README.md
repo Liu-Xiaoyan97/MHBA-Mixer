@@ -1,7 +1,23 @@
-# MTCA-Mixer
-MTCA-Mixer: an Efficient Mixer for NLP
+# MHBA-Mixer
+MHBA-Mixer: an Efficient Mixer for NLP
 
+## Architecture of MHBA-Mixer
+![Arcitecture of MHBA-Mixer](./figure/MHBA-Mixer.jpg)
+## details for hidden bias attention (HBA)
+![(left) hidden bias attention (HBA), (right) Multi-Head HBA with n heads](./figure/Multi-Head%20HBA.jpg)
+
+## How to train
+`python main.py -d=YOUR_DATASET -t=train -p=YOUR_MODEL`  
+`YOUR_DATASET` must be selected in `configs/nlp/*.yml`  
+when train your model, `-p` is optional.
+
+## How to test
+`python main.py -d=YOUR_DATASET -t=test -p=YOUR_MODEL`  
+`-p` must be a specific model in  `trained-models/*.ckpt`  
+We provide 9 datasets which have been displayed in Table 1. 
 ## Experiments
+Table 1: Main results of MHBA-Mixer on several datasets.
+  
 | DATASET |MAX SEQ LEN | ACCURACY (%) | PARAMETERS (M) |
 |  ----  | ---- | ----  |  ----  |
 | AGNEWS | 128 | 91.79 | 0.726 |
