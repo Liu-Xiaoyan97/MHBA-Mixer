@@ -38,10 +38,10 @@ class TCA(nn.Module):
         super(TCA, self).__init__()
         self.embedding_dim = embedding_dim
         self.local_information = nn.Conv1d(embedding_dim, embedding_dim,
-                                                          kernel_size, 1, padding, dilation)
+                                                          kernel_size, 1, padding, dilation, groups=embedding_dim)
         self.activate = nn.GELU()
         self.bn = nn.BatchNorm1d(embedding_dim)
-        self.global_information = nn.Linear(embedding_dim, embedding_dim)
+        self.global_information = nn.Linear(max_seq_len, max_seq_len)
         self.bernolli_sampling = self.Choice_Bernolli(mode)(max_len=max_seq_len, prob=prob)
         self.softmax = nn.Softmax(-1)
 
@@ -52,16 +52,14 @@ class TCA(nn.Module):
             return Bernolli_sampling_nlp
 
     def forward(self, x):
-        x = x.transpose(1,2)
-        local_information = self.local_information(x)
+        x = x.transpose(1, 2)
         # [N, embedding_dim 4, max_seq_len 384]
-        q = self.bn(self.activate(local_information+x))
-        k = self.bn(self.activate(self.bernolli_sampling(x)))
-        v = self.activate(self.global_information(x.transpose(1,2)))
-        # v = x
+        q = self.bn(self.activate(self.local_information(x)+x))
+        k = self.activate(self.bernolli_sampling(x))
+        v = self.activate(self.global_information(x))
         attention = self.softmax(torch.bmm(q, k.transpose(1, 2))/sqrt(self.embedding_dim))
-        output = torch.bmm(attention, v.transpose(1,2))
-        return output.transpose(1,2), attention
+        output = torch.bmm(attention, v)
+        return output.transpose(1, 2), attention
 
 
 class MHTCA(nn.Module):
@@ -139,7 +137,7 @@ class MixerLayer(nn.Module):
         self.layer_norm_1 = nn.LayerNorm(hidden_dim)
         # attention = attention_choice(index)
         self.sa = MHTCA(n_heads, mode, max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
-        # self.sa = TCA(mode, max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
+        # self.sa = TCA("nlp", max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
         self.activate = nn.GELU()
         self.layer_norm_2 = nn.LayerNorm(hidden_dim)
         self.dropout = nn.Dropout(p=0.5)

@@ -1,6 +1,6 @@
 loader:
   batch_size: 50
-  num_workers: 2
+  num_workers: 4
 
 projection:
   num_hashes: 64
@@ -10,7 +10,7 @@ projection:
 bottleneck:
   window_size: *window_size
   feature_size: *feature_size
-  hidden_dim: &hidden_dim 256
+  hidden_dim: &hidden_dim 64
 
 backbone:
   index: 7
