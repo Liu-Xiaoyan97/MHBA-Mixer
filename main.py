@@ -238,7 +238,7 @@ if __name__ == '__main__':
         max_epochs=30,
         check_val_every_n_epoch=1,
         # limit_train_batches=0.5,
-        # limit_val_batches=0.1
+        # limit_val_batches=0.5
     )
     if args.train == 'train':
         trainer.fit(train_module, data_module)
