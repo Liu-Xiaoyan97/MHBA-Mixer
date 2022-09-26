@@ -19,13 +19,27 @@ We provide 9 datasets which have been displayed in Table 1.
 Table 1: Main results of MHBA-Mixer on several datasets with hidden dimension 256.
   
 | DATASET |MAX SEQ LEN | ACCURACY (%) | PARAMETERS (M) |
-|  ----  | ---- | ----  |  ----  |
-| AGNEWS | 128 | 91.79 | 0.726 |
-| AMAZON |128|? | 0.726|
-| DBPEDIA |128 |98.44 | 0.726|
-| HYPERPARTISAN |2048 | 89.43| 0.698|
-| IMDB |1024 |87.88 | 0.677 |
-| Yelp2 | 128| 92.57 | 0.726 |
-| SST2 | 128| 83.48 | 0.726 |
-| CoLA | 128| 69.51 | 0.726 |
-| QQP | 128 | 82.02 | 0.726 |
+|  ----  | ---- |--------------|  ----  |
+| AGNEWS | 128 | 91.79        | 0.726 |
+| AMAZON |128| 91.88        | 0.726|
+| DBPEDIA |128 | 98.44        | 0.726|
+| HYPERPARTISAN |2048 | 89.43        | 0.698|
+| IMDB |1024 | 87.88        | 0.677 |
+| Yelp2 | 128| 92.57        | 0.726 |
+| SST2 | 128| 83.48        | 0.726 |
+| CoLA | 128| 69.51        | 0.726 |
+| QQP | 128 | 82.02        | 0.726 |
+  
+Table 2: Main results of MHBA-Mixer with different hidden dimension.  
+
+| DATASET | ACCURACY (%) | PARAMETERS (M) | HIDDEN DIMENSION |
+|---------|--------------|----------------|------------------|
+| AGNEWS  | 91.68        | 0.12           | 64               |
+| AGNEWS  | 91.42        | 0.25           | 128              |
+| AGNEWS  | 91.79        | 0.73           | 256              |
+| IMDb    | 87.08        | 0.10           | 64               |
+| IMDb    | 87.76        | 0.24           | 128              |
+| IMDb    | 87.88        | 0.68           | 256              |
+| SST-2   | 83.21        | 0.10           | 64               |
+| SST-2   | _87.76_        | 0.25           | 128              |
+| SST-2   | 83.48        | 0.73           | 256              |
