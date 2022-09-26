@@ -16,7 +16,7 @@ when train your model, `-p` is optional.
 `-p` must be a specific model in  `trained-models/*.ckpt`  
 We provide 9 datasets which have been displayed in Table 1. 
 ## Experiments
-Table 1: Main results of MHBA-Mixer on several datasets.
+Table 1: Main results of MHBA-Mixer on several datasets with hidden dimension 256.
   
 | DATASET |MAX SEQ LEN | ACCURACY (%) | PARAMETERS (M) |
 |  ----  | ---- | ----  |  ----  |
