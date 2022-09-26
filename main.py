@@ -235,7 +235,7 @@ if __name__ == '__main__':
         gpus=1,
         log_every_n_steps=2,
         logger=pl.loggers.TensorBoardLogger("logs/", args.dataset),
-        max_epochs=100,
+        max_epochs=30,
         check_val_every_n_epoch=1,
         # limit_train_batches=0.5,
         # limit_val_batches=0.1
