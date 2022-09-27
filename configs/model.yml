@@ -10,7 +10,7 @@ projection:
 bottleneck:
   window_size: *window_size
   feature_size: *feature_size
-  hidden_dim: &hidden_dim 128
+  hidden_dim: &hidden_dim 64
 
 backbone:
   index: 7

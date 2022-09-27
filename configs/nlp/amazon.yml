@@ -14,7 +14,7 @@ dataset_type:
   dataset_path: None-
 
 classification:
-  hidden_dim: &hidden_dim 256
+  hidden_dim: &hidden_dim 64
   proj_dim: *hidden_dim
   num_class: 2
 
