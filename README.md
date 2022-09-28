@@ -147,7 +147,7 @@ Table 2: Results on semantic analysis tasks.
     <td>pNLP-Mixer XL</td>
     <td>89.20</td>
     <td>82.90</td>
-    <td>91.70</td>
+    <td>84.05</td>
     <td>8.4/6.8/4.9</td>
   </tr>
   <tr>
@@ -428,5 +428,3 @@ Table 5: Main results of MHBA-Mixer with different hidden dimension.
   </tr>
 </tbody>
 </table>  
-
-Table 3: Main results of HBA-Mixer-2 and MHBA-Mixers.  
