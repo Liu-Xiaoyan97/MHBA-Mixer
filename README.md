@@ -81,7 +81,19 @@ Table 1: Results on text classification tasks.
     <td>93.49</td>
     <td>0.13</td>
   </tr>
-
+  <tr>
+    <td>MHBA-Mixer-64d</td>
+    <td>91.68</td>
+    <td>/</td>
+    <td>98.11</td>
+    <td>0.10/-/0.13</td>
+  </tr>
+<tr>
+    <td>MHBA-Mixer-256d</td>
+    <td>91.79</td>
+    <td>91.88</td>
+    <td>98.44</td>
+    <td>0.73/0.73/0.73</td>
   </tr>
 </tbody>
 </table>
@@ -156,6 +168,20 @@ Table 2: Results on semantic analysis tasks.
     <td>86.79</td>
     <td>92.81</td>
     <td>8.5/2.2/0.12</td>
+  </tr>
+  <tr>
+    <td>MHBA-Mixer-64d</td>
+    <td>/</td>
+    <td>87.08</td>
+    <td>92.35</td>
+    <td>-/0.10/0.10</td>
+  </tr>
+<tr>
+    <td>MHBA-Mixer-256d</td>
+    <td>89.43</td>
+    <td>87.88</td>
+    <td>92.57</td>
+    <td>0.68/0.73/0.73</td>
   </tr>
 </tbody>
 </table>
@@ -259,19 +285,19 @@ Table 3: Results on natural language inference.
     <td>81.55</td>
     <td>0.13/0.13/0.23</td>
   </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <tr>
+    <td>MHBA-Mixer-64d</td>
+    <td>83.21</td>
+    <td>69.23</td>
+    <td>81.96</td>
+    <td>0.10/0.10/0.09</td>
   </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+<tr>
+    <td>MHBA-Mixer-256d</td>
+    <td>83.48</td>
+    <td>69.51</td>
+    <td>82.02</td>
+    <td>0.73/0.73/0.73</td>
   </tr>
 </tbody>
 </table>
@@ -300,7 +326,7 @@ Table 4: Results of the comparasion between HBA-Mixer and MHBA-Mixers.
     <td>91.38</td>
     <td>0.13</td>
     <td>91.68 (+0.30)</td>
-    <td>0.12 (-0.01)</td>
+    <td>0.10 (-0.03)</td>
     <td>91.79 (+0.41)</td>
     <td>0.73 (+0.60)</td>
   </tr>
