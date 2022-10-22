@@ -84,9 +84,9 @@ Table 1: Results on text classification tasks.
   <tr>
     <td>MHBA-Mixer-64d</td>
     <td>91.68</td>
-    <td>/</td>
+    <td>91.17</td>
     <td>98.11</td>
-    <td>0.10/-/0.13</td>
+    <td>0.10/0.10/0.13</td>
   </tr>
 <tr>
     <td>MHBA-Mixer-256d</td>
