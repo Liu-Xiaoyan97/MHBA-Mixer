@@ -136,8 +136,8 @@ class MixerLayer(nn.Module):
         self.kernel_size, self.dilation, self.padding = kernel_size, dilation, padding
         self.layer_norm_1 = nn.LayerNorm(hidden_dim)
         # attention = attention_choice(index)
-        # self.sa = MHTCA(n_heads, mode, max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
-        self.sa = TCA("nlp", max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
+        self.sa = MHTCA(n_heads, 'nlp', max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
+        # self.sa = TCA("nlp", max_seq_len, hidden_dim, 0.8, kernel_size, dilation, padding)
         self.activate = nn.GELU()
         self.layer_norm_2 = nn.LayerNorm(hidden_dim)
         self.dropout = nn.Dropout(p=0.5)
