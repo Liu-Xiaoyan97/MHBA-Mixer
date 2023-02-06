@@ -25,12 +25,9 @@ class Projection:
 
     def __call__(self, words: List[List[str]]) -> np.ndarray:
         hashed = np.array([np.array([self.hash(token) for token in word]).min(axis=-2) for word in words])
+        # print(wor)
+        # print(hashed.shape)
         features = self.cbf(hashed)
-        if self.window_size > 0: 
-            padded = np.pad(features, ((self.window_size, self.window_size), (0, 0)))
-            rows = self.feature_size * np.arange(0, padded.shape[0] - 2)[:, None]
-            cols = np.arange((2 * self.window_size + 1) * self.feature_size)[None]
-            features = padded.flatten()[rows + cols]
         return features
 
 class MinHash:
@@ -45,7 +42,7 @@ class MinHash:
             hash1 = self.hash_fn1(token)
             hash2 = self.hash_fn2(token)
             hash = np.array([(hash1 + i * hash2) % MAX_HASH_VALUE for i in range(self.num_hashes)])
-            print(token)
+            # print(token)
             return hash
         ngrams = []
         for index in range(len(token) - self.ngram_size + 1): 
@@ -69,7 +66,7 @@ class CountingBloomFilter:
         self.one_hot = np.eye(feature_size, dtype=np.float32)
 
     def __call__(self, words: np.ndarray) -> np.ndarray:
-        # print(words)
+        # print(words.shape)
         features = self.one_hot[words % self.feature_size].sum(axis=-2)
         return features
 
@@ -119,7 +116,7 @@ if __name__ == '__main__':
         vocabs = vocab_file.readlines()
     # vocabs = normalize(vocabs)
     vocabs = list(map(lambda l: l.strip().split('\t')[0], vocabs))
-    print(vocabs)
+    # print(vocabs)
     is_cont = (
         WORDPIECE_IS_CONTINUATION
     )

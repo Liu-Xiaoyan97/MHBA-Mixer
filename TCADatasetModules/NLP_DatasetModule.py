@@ -39,6 +39,8 @@ class NLPDataModule(pl.LightningDataModule):
             return ImdbDataset
         if self.datasetcfg.dataset_type.name == 'sst2':
             return SST2Dataset
+        if self.datasetcfg.dataset_type.name == 'sst5':
+            return SST5Dataset
         if self.datasetcfg.dataset_type.name == 'agnews':
             return AGDataset
         if self.datasetcfg.dataset_type.name == 'snli':
@@ -47,6 +49,8 @@ class NLPDataModule(pl.LightningDataModule):
             return QNLIDataset
         if self.datasetcfg.dataset_type.name == 'yelp2':
             return YelpDataset
+        if self.datasetcfg.dataset_type.name == 'yelp5':
+            return Yelp5Dataset
         if self.datasetcfg.dataset_type.name == 'qqp':
             return QQPDataset
         if self.datasetcfg.dataset_type.name == 'rte':
@@ -59,6 +63,8 @@ class NLPDataModule(pl.LightningDataModule):
             return AmazonDataset
         if self.datasetcfg.dataset_type.name == "dbpedia":
             return dbpediaDataset
+        if self.datasetcfg.dataset_type.name == "semeval_task_1":
+            return semeval1
 
     def setup(self, stage: str = None):
         root = Path(self.datasetcfg.dataset_type.dataset_path)
@@ -71,14 +77,15 @@ class NLPDataModule(pl.LightningDataModule):
         if stage in (None, 'fit'):
             self.train_set = dataset_cls(root, 'train', self.datasetcfg.dataset_type.max_seq_len, self.tokenizer,
                                          self.projecion, self.label_map)
-            if self.datasetcfg.dataset_type.name in ['imdb', "yelp2", 'agnews', 'dbpedia', "amazon"]:
+            if self.datasetcfg.dataset_type.name in ['imdb', "yelp2", 'yelp5', 'agnews', 'dbpedia', "amazon"]:
                 mode = 'test'
             else:
                 mode = 'validation'
             self.eval_set = dataset_cls(root, mode, self.datasetcfg.dataset_type.max_seq_len, self.tokenizer, self.projecion,
                                         self.label_map)
         if stage in (None, 'test'):
-            if self.datasetcfg.dataset_type.name in ['imdb', "yelp2", 'agnews', 'dbpedia', "amazon"]:
+            if self.datasetcfg.dataset_type.name in ['imdb', "yelp2", 'agnews', 'dbpedia', "amazon", "semeval_task_1",
+                                                     'yelp5']:
                 mode = 'test'
             else:
                 mode = 'validation'
@@ -151,6 +158,30 @@ class YelpDataset(PnlpMixerDataset):
     def __init__(self, root: Path, filename: str, *args, **kwargs) -> None:
         super(YelpDataset, self).__init__(*args, **kwargs)
         self.data = load_dataset('yelp_polarity', 'plain_text', split=filename)
+
+    def __len__(self) -> int:
+        return len(self.data)
+
+    def normalize(self, text: str) -> str:
+        return text.replace("\\", " ") \
+            .replace("?", " ?") \
+            .replace(".", " .") \
+            .replace(",", " ,") \
+            .replace("!", " !") \
+            .replace("\n", " ")
+
+    def get_words(self, fields: List[str]) -> List[str]:
+        return [w[0] for w in self.tokenizer.pre_tokenizer.pre_tokenize_str(self.normalize(fields["text"]))][
+               :self.max_seq_len]
+
+    def compute_labels(self, fields: List[str]) -> np.ndarray:
+        return np.array(fields["label"])
+
+
+class Yelp5Dataset(PnlpMixerDataset):
+    def __init__(self, root: Path, filename: str, *args, **kwargs) -> None:
+        super(Yelp5Dataset, self).__init__(*args, **kwargs)
+        self.data = load_dataset("yelp_review_full", split=filename)
 
     def __len__(self) -> int:
         return len(self.data)
@@ -306,6 +337,26 @@ class SST2Dataset(PnlpMixerDataset):
         return np.array(fields["label"])
 
 
+class SST5Dataset(PnlpMixerDataset):
+    def __init__(self, root: Path, filename: str, *args, **kwargs) -> None:
+        super(SST5Dataset, self).__init__(*args, **kwargs)
+        self.data = load_dataset("SetFit/sst5", split=filename)
+
+    def __len__(self) -> int:
+        return len(self.data)
+
+    def normalize(self, text: str) -> str:
+        return text.replace('<br />', ' ')
+
+    def get_words(self, fields: List[str]) -> List[str]:
+        return [w[0] for w in self.tokenizer.pre_tokenizer.pre_tokenize_str(self.normalize(fields["text"]))][
+               :self.max_seq_len]
+
+    def compute_labels(self, fields: List[str]) -> np.ndarray:
+        return np.array(fields["label"])
+
+
+
 class CoLADataset(PnlpMixerDataset):
     def __init__(self, root: Path, filename: str, *args, **kwargs) -> None:
         super(CoLADataset, self).__init__(*args, **kwargs)
@@ -416,6 +467,44 @@ class QQPDataset(PnlpMixerDataset):
             'inputs': features,
             'targets': labels
         }
+
+
+class semeval1(PnlpMixerDataset):
+    def __init__(self, root: Path, filename: str, *args, **kwargs) -> None:
+        super(semeval1, self).__init__(*args, **kwargs)
+        self.data = load_dataset("sem_eval_2014_task_1", split=filename)
+
+    def __len__(self):
+        return len(self.data)
+
+    def normalize(self, text: str) -> str:
+        return text.replace("\\", " ") \
+            .replace("?", " ?") \
+            .replace(".", " .") \
+            .replace(",", " ,") \
+            .replace("!", " !")
+
+    def get_words(self, fields: List[str]) -> List[str]:
+        return [[w[0] for w in self.tokenizer.pre_tokenizer.pre_tokenize_str(self.normalize(fields["premise"]))][
+                :self.max_seq_len],
+                [w[0] for w in self.tokenizer.pre_tokenizer.pre_tokenize_str(self.normalize(fields["hypothesis"]))][
+                :self.max_seq_len]]
+
+    def compute_labels(self, fields):
+        return np.array(fields["entailment_judgment"])
+
+    def __getitem__(self, index) -> Dict[str, Any]:
+        fields = self.data[index]
+        words = self.get_words(fields)
+        u = self.project_features(words[0]).reshape(1, self.max_seq_len, -1)
+        v = self.project_features(words[1]).reshape(1, self.max_seq_len, -1)
+        features = np.concatenate((u, v), axis=0)
+        labels = self.compute_labels(fields)
+        return {
+            'inputs': features,
+            'targets': labels
+        }
+
 
 
 class RTEDataset(PnlpMixerDataset):

@@ -96,6 +96,7 @@ class MHTCA(nn.Module):
             q = inputs.view(-1, self.embedding_dim, self.input_dim)
             k = inputs.view(-1, self.embedding_dim, self.input_dim)
             v = inputs.view(-1, self.embedding_dim, self.input_dim)
+        # print(q.shape)
         q = self.bn(self.activate(self.local_information(q)+q))
         k = self.activate(self.bernolli_sampling(k))
         v = self.activate(self.global_information(v))

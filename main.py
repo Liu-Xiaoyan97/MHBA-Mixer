@@ -184,7 +184,8 @@ def parse_args():
 def get_module_cls(dataset: str):
     if dataset in ["cifar10", "cifar100", "imagenet", "mnist", 'fashion', 'flowers102']:
         return TCAMixerCVTrainModule, CVDataModule
-    if dataset in ["agnews", 'amazon', 'dbpedia', 'hyperpartisan', 'imdb', 'yelp2', 'sst2', 'cola', 'qqp']:
+    if dataset in ["agnews", 'amazon', 'dbpedia', 'hyperpartisan',
+                   'imdb', 'yelp2', 'yelp5', 'sst2', 'sst5', 'cola', 'qqp', "semeval_task_1"]:
         return TCAMixerNLPTrainModule, NLPDataModule
     else:
         raise "More Tasks support later...."
@@ -200,7 +201,8 @@ if __name__ == '__main__':
     optimizer_cfg =modelcfg.optimizer
     if args.dataset in ["cifar10", "cifar100", "imagenet", "mnist", 'fashion', 'flowers102']:
         datasetcfg = OmegaConf.load("configs/cv/"+args.dataset+".yml")
-    if args.dataset in ["agnews", 'amazon', 'dbpedia', 'hyperpartisan', 'imdb', 'yelp2', 'sst2', 'cola', 'qqp']:
+    if args.dataset in ["agnews", 'amazon', 'dbpedia', 'hyperpartisan',
+                        'imdb', 'yelp2', 'yelp5', 'sst2', 'sst5', 'cola', 'qqp', "semeval_task_1"]:
         datasetcfg = OmegaConf.load("configs/nlp/"+args.dataset+".yml")
     print(datasetcfg)
     modules = get_module_cls(args.dataset)
@@ -233,14 +235,15 @@ if __name__ == '__main__':
         ],
         enable_checkpointing=True,
         gpus=1,
-        log_every_n_steps=2,
+        log_every_n_steps=1,
         logger=pl.loggers.TensorBoardLogger("logs/", args.dataset),
-        max_epochs=30,
+        max_epochs=100,
         check_val_every_n_epoch=1,
         # limit_train_batches=0.5,
         # limit_val_batches=0.5
     )
     if args.train == 'train':
         trainer.fit(train_module, data_module)
+        trainer.test(train_module, data_module)
     if args.train == 'test':
         trainer.test(train_module, data_module, ckpt_path=args.ckpt)
