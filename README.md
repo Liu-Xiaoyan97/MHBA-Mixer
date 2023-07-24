@@ -1,5 +1,5 @@
 # MHBA-Mixer
-MHBA-Mixer: an Efficient Mixer for NLP
+Pay attention to the hidden semanteme.
 
 ## Architecture of MHBA-Mixer
 ![Arcitecture of MHBA-Mixer](./figure/MHBA-Mixer.jpg)
@@ -454,3 +454,17 @@ Table 5: Main results of MHBA-Mixer with different hidden dimension.
   </tr>
 </tbody>
 </table>  
+
+Please stay tuned for this series.  
+```
+@article{TANG2023119076,
+title = {Pay attention to the hidden semanteme},
+journal = {Information Sciences},
+volume = {640},
+pages = {119076},
+year = {2023},
+issn = {0020-0255},
+doi = {https://doi.org/10.1016/j.ins.2023.119076},
+url = {https://www.sciencedirect.com/science/article/pii/S0020025523006618},
+author = {Huanling Tang and Xiaoyan Liu and Yulin Wang and Quansheng Dou and Mingyu Lu},
+```
