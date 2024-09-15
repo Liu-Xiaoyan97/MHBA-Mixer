@@ -468,3 +468,17 @@ doi = {https://doi.org/10.1016/j.ins.2023.119076},
 url = {https://www.sciencedirect.com/science/article/pii/S0020025523006618},
 author = {Huanling Tang and Xiaoyan Liu and Yulin Wang and Quansheng Dou and Mingyu Lu},
 ```
+```
+@Article{Liu2023,
+  author    = {Xiaoyan Liu and Huanling Tang and Jie Zhao and Quansheng Dou and Mingyu Lu},
+  journal   = {Eng. Appl. Artif. Intell.},
+  title     = {TCAMixer: {A} lightweight Mixer based on a novel triple concepts attention mechanism for {NLP}},
+  year      = {2023},
+  number    = {Part {C}},
+  pages     = {106471},
+  volume    = {123},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  biburl    = {https://dblp.org/rec/journals/eaai/LiuTZDL23.bib},
+  doi       = {10.1016/J.ENGAPPAI.2023.106471},
+}
+```
